@@ -3,7 +3,7 @@ source ./set-env-vars.sh
 
 push_image()
 {
-  IMAGE_NAME=terrabrasilis/geoserver-$1:v$VERSION
+  IMAGE_NAME=cybertecpostgresql/geoserver-$1:v$VERSION
   if test ! -z "$(docker images -q $IMAGE_NAME)"; then
     echo "Found the image $IMAGE_NAME"
     echo "Do you want sending this new image to Docker HUB? Type yes to continue." ; read SEND_TO_HUB

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export GEOSERVER_LOG_LOCATION="/var/local/geoserver/cluster/logs/$instanceName"
+
 if [ -n "${CUSTOM_UID}" ];then
   echo "Using custom UID ${CUSTOM_UID}."
   usermod -u ${CUSTOM_UID} tomcat
