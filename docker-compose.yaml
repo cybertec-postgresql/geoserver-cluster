@@ -2,48 +2,51 @@ version: '3.4'
 
 services:
   broker:
-    image: terrabrasilis/geoserver-broker:v1.0.1
+    image: cybertecpostgresql/geoserver-broker:v1.1.2
     expose:
      - 61666
     ports:
      - "61666:61666"
     volumes:
-     - /data/gs_cluster/gs_datadir:/var/local/geoserver
+     - /home/florian/git/geoserver-cluster/data/gs_cluster/gs_datadir:/var/local/geoserver
   master:
-    image: terrabrasilis/geoserver-master:v1.0.1
+    image: cybertecpostgresql/geoserver-master:v1.1.2
     volumes:
-     - /data/gs_cluster/gs_datadir:/var/local/geoserver
-     - /data/gs_cluster/gs_extensions:/var/local/geoserver-exts
+     - /home/florian/git/geoserver-cluster/data/gs_cluster/gs_datadir:/var/local/geoserver
+     - /home/florian/git/geoserver-cluster/data/gs_cluster/gs_extensions:/var/local/geoserver-exts
     environment:
       COOKIE: JSESSIONID prefix
       CLUSTER_CONFIG_DIR: /var/local/geoserver/cluster/master
       GEOSERVER_LOG_LOCATION: /var/local/geoserver/cluster/logs/master
       instanceName: master
+      CATALINA_OPTS: ""
     ports:
       - "8081:8080"
   slave1:
-    image: terrabrasilis/geoserver-worker:v1.0.1
+    image: cybertecpostgresql/geoserver-worker:v1.1.2
     hostname: geoserver.slave1
     volumes:
-     - /data/gs_cluster/gs_datadir:/var/local/geoserver
-     - /data/gs_cluster/gs_extensions:/var/local/geoserver-exts
+     - /home/florian/git/geoserver-cluster/data/gs_cluster/gs_datadir:/var/local/geoserver
+     - /home/florian/git/geoserver-cluster/data/gs_cluster/gs_extensions:/var/local/geoserver-exts
     environment:
       COOKIE: JSESSIONID prefix
       CLUSTER_CONFIG_DIR: /var/local/geoserver/cluster/slave1
       GEOSERVER_LOG_LOCATION: /var/local/geoserver/cluster/logs/slave1
       instanceName: slave1
+      CATALINA_OPTS: ""
     ports:
       - "8082:8080"
   slave2:
-    image: terrabrasilis/geoserver-worker:v1.0.1
+    image: cybertecpostgresql/geoserver-worker:v1.1.2
     hostname: geoserver.slave2
     volumes:
-     - /data/gs_cluster/gs_datadir:/var/local/geoserver
-     - /data/gs_cluster/gs_extensions:/var/local/geoserver-exts
+     - /home/florian/git/geoserver-cluster/data/gs_cluster/gs_datadir:/var/local/geoserver
+     - /home/florian/git/geoserver-cluster/data/gs_cluster/gs_extensions:/var/local/geoserver-exts
     environment:
       COOKIE: JSESSIONID prefix
       CLUSTER_CONFIG_DIR: /var/local/geoserver/cluster/slave2
       GEOSERVER_LOG_LOCATION: /var/local/geoserver/cluster/logs/slave2
       instanceName: slave2
+      CATALINA_OPTS: ""
     ports:
       - "8083:8080"
